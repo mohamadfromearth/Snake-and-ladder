@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public class DefaultCellFactory : MonoBehaviour, ICellFactory
+namespace Cell
 {
-    [SerializeField] private DefaultCell _defaultCellPrefab;
+    public class DefaultCellFactory : MonoBehaviour, ICellFactory
+    {
+        [SerializeField] private DefaultCell _defaultCellPrefab;
 
-    public ICell Create() => Instantiate(_defaultCellPrefab);
+        public ICell Create() => Instantiate(_defaultCellPrefab, transform);
+    }
 }

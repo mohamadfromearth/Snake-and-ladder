@@ -1,36 +1,38 @@
 using UnityEngine;
+using Zenject;
 
-public class CellsPlacer
+namespace Cell
 {
-    
-
-    private ICellFactory _cellFactory;
-    private int _row, _column;
-
-    public CellsPlacer(ICellFactory cellFactory, int row, int column)
+    public class CellsPlacer
     {
-        _cellFactory = cellFactory;
-        _row = row;
-        _column = column;
-    }
+        [Inject]
+        private ICellFactory _cellFactory;
+        private int _row, _column;
 
-    public void PlaceCells()
-    {
-        for (int row = 0; row <= _row; row++)
+        public CellsPlacer(int row, int column)
         {
-            for (int column = 0; column < _column; column++)
+            _row = row;
+            _column = column;
+        }
+
+        public void PlaceCells()
+        {
+            for (int row = 0; row < _row; row++)
             {
-                var cell = _cellFactory.Create();
-                cell.SetPosition(GetPosition(row, column,cell.Size));
+                for (int column = 0; column < _column; column++)
+                {
+                    var cell = _cellFactory.Create();
+                    cell.SetPosition(GetPosition(row, column, cell.Size));
+                }
             }
         }
-    }
 
 
-    private Vector2 GetPosition(int row, int column, int cellSize)
-    {
-        var x = row * cellSize + cellSize / 2f;
-        var y = column * cellSize + cellSize / 2f;
-        return new Vector2(x, y);
+        private Vector2 GetPosition(int row, int column, int cellSize)
+        {
+            var x = row * cellSize + cellSize / 2f;
+            var y = column * cellSize + cellSize / 2f;
+            return new Vector2(x, y);
+        }
     }
 }

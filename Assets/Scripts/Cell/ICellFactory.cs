@@ -1,6 +1,7 @@
-using UnityEngine;
-
-public interface ICellFactory
+namespace Cell
 {
-    ICell Create();
+    public interface ICellFactory
+    {
+        ICell Create();
+    }
 }
