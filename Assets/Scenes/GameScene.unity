@@ -292,6 +292,7 @@ MonoBehaviour:
   _gameData: {fileID: 11400000, guid: 978ea75cdf55c7748aa28ff54a5690ee, type: 2}
   _defaultCellFactoryPrefab: {fileID: 6399204310719214693, guid: 496632f1cd1c13e49a126029b10589d1, type: 3}
   _gameManager: {fileID: 8453681373166946568, guid: a3ba473b485b62e439bc0876ec457214, type: 3}
+  _playerPrefab: {fileID: -5169070998730284545, guid: 4b0050d128365b84493f39a654cdc3f1, type: 3}
 --- !u!114 &1553898756
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ namespace Di
         // prefabs
         [Header("Prefabs")] [SerializeField] private DefaultCellFactory _defaultCellFactoryPrefab;
         [SerializeField] private GameManager _gameManager;
+        [SerializeField] private Player _playerPrefab;
 
         public override void InstallBindings()
         {
@@ -22,6 +23,8 @@ namespace Di
             Container.Bind<CellsPlacer>().To<CellsPlacer>().AsTransient().WithArguments(
                 _gameData.row,
                 _gameData.column);
+
+            Container.Bind<Player>().FromInstance(Instantiate(_playerPrefab));
 
             Container.Bind<Grid>().To<Grid>().AsTransient().WithArguments(_gameData.cellSize, _gameData.row, _gameData.column);
         }
