@@ -9,11 +9,12 @@ namespace GameStates
         [Inject] private Player _player;
         [Inject] private Dice _dice;
         [Inject] private Grid _grid;
+        [Inject] private DiceController _diceController;
 
         public void DiceClick()
         {
             var diceValue = _dice.Roll();
-            Debug.Log("On Dice Click" + diceValue);
+            _diceController.SetImage(diceValue);
             var position = _player.transform.position;
             var nextPosition = _grid.GetNextPosition(diceValue, position);
             _player.Move(nextPosition);

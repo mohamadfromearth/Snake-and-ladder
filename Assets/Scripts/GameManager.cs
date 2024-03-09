@@ -10,27 +10,22 @@ public class GameManager : MonoBehaviour
     [Inject] private CellsPlacer _cellsPlacer;
     [Inject] private GameStateManager _gameStateManager;
     [Inject] private Player _player;
+    [Inject] private DiceController _diceController;
 
 
     private void Start()
     {
         _gameStateManager.Init();
+        _gameStateManager.ToState<ReadyForPlayState>();
         _cellsPlacer.PlaceCells();
-        SetPlayerMoveFinishListener();
+        _player.AddMoveFinishedListener(() => { _gameStateManager.ToState<ReadyForPlayState>(); });
+        _diceController.AddClickListener(DiceClick);
     }
 
 
-    // events
-    public void OnDiceClick()
+    private void DiceClick()
     {
         _gameStateManager.DiceClick();
-    }
-
-    private void SetPlayerMoveFinishListener()
-    {
-        _player.AddMoveFinishedListener(() =>
-        {
-            _gameStateManager.OnPlayerMoveFinished();
-        });
+        _gameStateManager.ToState<WaitingForPlayState>();
     }
 }

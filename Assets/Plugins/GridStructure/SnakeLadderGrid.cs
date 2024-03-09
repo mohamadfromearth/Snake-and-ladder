@@ -32,5 +32,7 @@ namespace Plugins.GridStructure
 
             return new Vector2Int(x, y);
         }
+
+        
     }
 }

@@ -6,6 +6,6 @@ public class Dice
 {
     public int Roll()
     {
-        return Random.Range(1, 6); 
+        return Random.Range(1, 7); 
     }
 }

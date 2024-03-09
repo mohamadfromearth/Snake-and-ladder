@@ -37,15 +37,23 @@ namespace GridStructure
             return new Vector2Int(x, y);
         }
 
-        public  Vector2 GetNextPosition(int cellCount, Vector2 position)
+        public Vector2 GetNextPosition(int cellCount, Vector2 position)
         {
             var indices = GetIndicesByPosition(position);
+
+            if (IsOutOfBounds(cellCount, indices)) return position;
+
             var nextIndices = GetNextIndices(indices, cellCount);
             var pos = GetPosition(nextIndices.x, nextIndices.y);
             return pos;
         }
 
-        protected Vector2Int GetNextIndices(Vector2Int indices, int count)
+        protected virtual bool IsOutOfBounds(int cellCount, Vector2Int indices)
+        {
+            return indices.y == Column - 1 && indices.x + cellCount >= Row;
+        }
+
+        public Vector2Int GetNextIndices(Vector2Int indices, int count)
         {
             int x;
             int y;

@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Zenject;
 
 namespace GameStates
@@ -6,24 +8,29 @@ namespace GameStates
     {
         [Inject] private WaitingForPlayState _waitingForPlayState;
         [Inject] private ReadyForPlayState _readyForPlayState;
-        private IGameState _currentState;
+
+        private Dictionary<Type, IGameState> _states;
+        private Type _currentStateType;
 
 
         public void Init()
         {
-            _currentState = _readyForPlayState;
+            _states = new Dictionary<Type, IGameState>()
+            {
+                { typeof(WaitingForPlayState), _waitingForPlayState },
+                { typeof(ReadyForPlayState), _readyForPlayState }
+            };
+        }
+
+
+        public void ToState<T>() where T : IGameState
+        {
+            _currentStateType = typeof(T);
         }
 
         public void DiceClick()
         {
-            _currentState.DiceClick();
-            _currentState = _waitingForPlayState;
-        }
-
-
-        public void OnPlayerMoveFinished()
-        {
-            _currentState = _readyForPlayState;
+            _states[_currentStateType].DiceClick();
         }
     }
 }

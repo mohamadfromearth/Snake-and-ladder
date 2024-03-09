@@ -12,10 +12,13 @@ namespace Di
     {
         [SerializeField] private GameData _gameData;
 
+        [SerializeField] private GameObject uiParent;
+
         // prefabs
         [Header("Prefabs")] [SerializeField] private DefaultCellFactory _defaultCellFactoryPrefab;
         [SerializeField] private GameManager _gameManager;
         [SerializeField] private Player _playerPrefab;
+        [SerializeField] private DiceController _diceController;
 
         public override void InstallBindings()
         {
@@ -27,19 +30,19 @@ namespace Di
                 _gameData.column);
 
             Container.Bind<Player>().FromInstance(Instantiate(_playerPrefab)).AsSingle().NonLazy();
-            
-            Container.Bind<Grid>().To<SnakeLadderGrid>().AsSingle().WithArguments(_gameData.cellSize, _gameData.row, _gameData.column);
-            
+
+            Container.Bind<Grid>().To<SnakeLadderGrid>().AsSingle()
+                .WithArguments(_gameData.cellSize, _gameData.row, _gameData.column);
+
             Container.Bind<Dice>().AsTransient();
+
+            Container.Bind<DiceController>().FromInstance(Instantiate(_diceController,uiParent.transform)).AsSingle().NonLazy();
 
             Container.Bind<GameStateManager>().AsTransient();
 
             Container.Bind<ReadyForPlayState>().AsTransient();
 
             Container.Bind<WaitingForPlayState>().AsTransient();
-
-           
-
         }
     }
 }
