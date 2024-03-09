@@ -1,3 +1,4 @@
+using PlasticGui.WebApi.Responses;
 using UnityEngine;
 
 namespace GridStructure
@@ -27,6 +28,35 @@ namespace GridStructure
             var x = row * CellSize + CellSize / 2f;
             var y = column * CellSize + CellSize / 2f;
             return new Vector2(x, y);
+        }
+
+        public Vector2Int GetIndicesByPosition(Vector2 position)
+        {
+            var x = (int)(position.x / CellSize - CellSize);
+            var y = (int)(position.y / CellSize - CellSize);
+            return new Vector2Int(x, y);
+        }
+
+        public Vector2 GetNextPosition(int cellCount, Vector2 position)
+        {
+            var indices = GetIndicesByPosition(position);
+            var nextIndices = GetNextIndices(indices, cellCount);
+            var pos = GetPosition(nextIndices.x, nextIndices.y);
+            return pos;
+        }
+
+        private Vector2Int GetNextIndices(Vector2Int indices, int count)
+        {
+            int x;
+            int y;
+            if (indices.x + count > Row)
+            {
+                x = Row - indices.x;
+                y = indices.y + 1;
+                return new Vector2Int(x, y);
+            }
+
+            return new Vector2Int(indices.x + count, indices.y);
         }
 
 

@@ -6,42 +6,41 @@ using Grid = GridStructure.Grid;
 public class GridStructureTests
 {
     private Grid _grid;
-    private int cellSize,width,height;
+    private int cellSize, row, column;
 
 
     [SetUp]
     public void Init()
     {
         cellSize = 1;
-        _grid = new Grid(cellSize, 10, 10);
+        row = 10;
+        column = 10;
+        _grid = new Grid(cellSize, row, column);
     }
 
 
     [Test]
-    [TestCase(13, 15)]
-    [TestCase(10, 12)]
+    [TestCase(3, 2)]
     public void GetPositionPasses(int row, int column)
     {
         var position = _grid.GetPosition(row, column);
-        var correctPos = new Vector2(row * cellSize + cellSize/2f, column  * cellSize + cellSize/2f) ;
+        var correctPos = new Vector2(row * cellSize + cellSize / 2f, column * cellSize + cellSize / 2f);
         Assert.AreEqual(correctPos, position);
     }
 
+    [Test]
+    [TestCase(2 + 0.5f, 1 + 0.5f)]
+    public void GetIndicesByPositionPasses(float x, float y)
+    {
+        var position = new Vector2(x, y);
+        var indices = _grid.GetIndicesByPosition(position);
+        var correctIndices = new Vector2Int(
+            (int)(position.x / cellSize - cellSize),
+            (int)(position.y / cellSize - cellSize)
+        );
+        Assert.AreEqual(correctIndices, indices);
+    }
 
-    // // A Test behaves as an ordinary method
-    // [Test]
-    // public void NewTestScriptSimplePasses()
-    // {
-    //     // Use the Assert class to test conditions
-    // }
-    //
-    // // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // // `yield return null;` to skip a frame.
-    // [UnityTest]
-    // public IEnumerator NewTestScriptWithEnumeratorPasses()
-    // {
-    //     // Use the Assert class to test conditions.
-    //     // Use yield to skip a frame.
-    //     yield return null;
-    // }
+
+
 }

@@ -1,5 +1,6 @@
 using Cell;
 using Data;
+using GameStates;
 using UnityEngine;
 using Zenject;
 using Grid = GridStructure.Grid;
@@ -24,9 +25,20 @@ namespace Di
                 _gameData.row,
                 _gameData.column);
 
-            Container.Bind<Player>().FromInstance(Instantiate(_playerPrefab));
+            Container.Bind<Player>().FromInstance(Instantiate(_playerPrefab)).AsSingle().NonLazy();
+            
+            Container.Bind<Grid>().To<Grid>().AsSingle().WithArguments(_gameData.cellSize, _gameData.row, _gameData.column);
+            
+            Container.Bind<Dice>().AsTransient();
 
-            Container.Bind<Grid>().To<Grid>().AsTransient().WithArguments(_gameData.cellSize, _gameData.row, _gameData.column);
+            Container.Bind<GameStateManager>().AsTransient();
+
+            Container.Bind<ReadyForPlayState>().AsTransient();
+
+            Container.Bind<WaitingForPlayState>().AsTransient();
+
+           
+
         }
     }
 }

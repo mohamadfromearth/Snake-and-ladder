@@ -15,7 +15,6 @@ namespace Cell
 
         public void SetPosition(Vector2 position)
         {
-            Debug.Log("Set cell position to " + position);
             transform.position = position;
         }
     }
