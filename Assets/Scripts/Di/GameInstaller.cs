@@ -1,6 +1,7 @@
 using Cell;
 using Data;
 using GameStates;
+using Plugins.GridStructure;
 using UnityEngine;
 using Zenject;
 using Grid = GridStructure.Grid;
@@ -27,7 +28,7 @@ namespace Di
 
             Container.Bind<Player>().FromInstance(Instantiate(_playerPrefab)).AsSingle().NonLazy();
             
-            Container.Bind<Grid>().To<Grid>().AsSingle().WithArguments(_gameData.cellSize, _gameData.row, _gameData.column);
+            Container.Bind<Grid>().To<SnakeLadderGrid>().AsSingle().WithArguments(_gameData.cellSize, _gameData.row, _gameData.column);
             
             Container.Bind<Dice>().AsTransient();
 

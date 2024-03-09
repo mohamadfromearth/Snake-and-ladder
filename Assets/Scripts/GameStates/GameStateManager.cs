@@ -19,5 +19,11 @@ namespace GameStates
             _currentState.DiceClick();
             _currentState = _waitingForPlayState;
         }
+
+
+        public void OnPlayerMoveFinished()
+        {
+            _currentState = _readyForPlayState;
+        }
     }
 }

@@ -9,12 +9,14 @@ public class GameManager : MonoBehaviour
     [Inject] private Grid _grid;
     [Inject] private CellsPlacer _cellsPlacer;
     [Inject] private GameStateManager _gameStateManager;
+    [Inject] private Player _player;
 
 
     private void Start()
     {
         _gameStateManager.Init();
         _cellsPlacer.PlaceCells();
+        SetPlayerMoveFinishListener();
     }
 
 
@@ -24,7 +26,11 @@ public class GameManager : MonoBehaviour
         _gameStateManager.DiceClick();
     }
 
-    private void OnPlayerMoveFinished(Vector2 position)
+    private void SetPlayerMoveFinishListener()
     {
+        _player.AddMoveFinishedListener(() =>
+        {
+            _gameStateManager.OnPlayerMoveFinished();
+        });
     }
 }

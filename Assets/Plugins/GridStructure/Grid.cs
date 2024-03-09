@@ -23,21 +23,21 @@ namespace GridStructure
         }
 
         // public functions
-        public Vector2 GetPosition(int row, int column)
+        public virtual Vector2 GetPosition(int row, int column)
         {
             var x = row * CellSize + CellSize / 2f;
             var y = column * CellSize + CellSize / 2f;
             return new Vector2(x, y);
         }
 
-        public Vector2Int GetIndicesByPosition(Vector2 position)
+        public virtual Vector2Int GetIndicesByPosition(Vector2 position)
         {
-            var x = (int)(position.x / CellSize - CellSize);
-            var y = (int)(position.y / CellSize - CellSize);
+            var x = (int)(position.x / CellSize - CellSize / 2f);
+            var y = (int)(position.y / CellSize - CellSize / 2f);
             return new Vector2Int(x, y);
         }
 
-        public Vector2 GetNextPosition(int cellCount, Vector2 position)
+        public  Vector2 GetNextPosition(int cellCount, Vector2 position)
         {
             var indices = GetIndicesByPosition(position);
             var nextIndices = GetNextIndices(indices, cellCount);
@@ -45,13 +45,13 @@ namespace GridStructure
             return pos;
         }
 
-        private Vector2Int GetNextIndices(Vector2Int indices, int count)
+        protected Vector2Int GetNextIndices(Vector2Int indices, int count)
         {
             int x;
             int y;
-            if (indices.x + count > Row)
+            if (indices.x + count >= Row)
             {
-                x = Row - indices.x;
+                x = count - (Row - indices.x);
                 y = indices.y + 1;
                 return new Vector2Int(x, y);
             }
