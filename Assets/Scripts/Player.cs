@@ -6,7 +6,14 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float moveTime;
 
+    public float MoveTime { get; private set; }
+
     private Action _moveFinished;
+
+    private void Start()
+    {
+        MoveTime = moveTime;
+    }
 
 
     public void Move(Vector2 position)

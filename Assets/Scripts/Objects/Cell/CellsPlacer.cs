@@ -3,10 +3,9 @@ using Zenject;
 
 namespace Cell
 {
-    public class CellsPlacer
+    public class CellsPlacer : IPlacer
     {
-        [Inject]
-        private ICellFactory _cellFactory;
+        [Inject] private ICellFactory _cellFactory;
         private int _row, _column;
 
         public CellsPlacer(int row, int column)
@@ -15,7 +14,14 @@ namespace Cell
             _column = column;
         }
 
-        public void PlaceCells()
+        private Vector2 GetPosition(int row, int column, int cellSize)
+        {
+            var x = row * cellSize + cellSize / 2f;
+            var y = column * cellSize + cellSize / 2f;
+            return new Vector2(x, y);
+        }
+
+        public void Place()
         {
             for (int row = 0; row < _row; row++)
             {
@@ -25,14 +31,6 @@ namespace Cell
                     cell.SetPosition(GetPosition(row, column, cell.Size));
                 }
             }
-        }
-
-
-        private Vector2 GetPosition(int row, int column, int cellSize)
-        {
-            var x = row * cellSize + cellSize / 2f;
-            var y = column * cellSize + cellSize / 2f;
-            return new Vector2(x, y);
         }
     }
 }

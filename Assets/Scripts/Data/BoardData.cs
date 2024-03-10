@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Data
 {
     [CreateAssetMenu(menuName = "So/GameData",fileName = "GameData")]
-    public class GameData : ScriptableObject
+    public class BoardData : ScriptableObject
     {
         public int cellSize;
         public int row;

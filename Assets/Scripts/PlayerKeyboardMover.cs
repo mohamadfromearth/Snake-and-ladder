@@ -3,22 +3,24 @@ using UnityEngine;
 using Zenject;
 using Grid = GridStructure.Grid;
 
-namespace GameStates
+public class PlayerKeyboardMover : MonoBehaviour
 {
-    public class ReadyForPlayState : IGameState
-    {
-        [Inject] private Player _player;
-        [Inject] private Dice _dice;
-        [Inject] private Grid _grid;
-        [Inject] private DiceController _diceController;
 
-        public void DiceClick()
+    [Inject] private Player _player;
+    [Inject] private Grid _grid;
+    [Inject] private DiceController _diceController;
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            var diceValue = _dice.Roll();
+            var diceValue =1;
             _diceController.SetImage(diceValue);
             var position = _player.transform.position;
             var nextPosition = _grid.GetNextPosition(diceValue, position);
             _player.Move(nextPosition);
+            
         }
+        
+       
     }
 }

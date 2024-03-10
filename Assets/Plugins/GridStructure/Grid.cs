@@ -32,9 +32,9 @@ namespace GridStructure
 
         public virtual Vector2Int GetIndicesByPosition(Vector2 position)
         {
-            var x = (int)(position.x / CellSize - CellSize / 2f);
-            var y = (int)(position.y / CellSize - CellSize / 2f);
-            return new Vector2Int(x, y);
+            var x = position.x / CellSize - CellSize / 2f;
+            var y = position.y / CellSize - CellSize / 2f;
+            return new Vector2Int(Mathf.RoundToInt(x), Mathf.RoundToInt(y));
         }
 
         public Vector2 GetNextPosition(int cellCount, Vector2 position)

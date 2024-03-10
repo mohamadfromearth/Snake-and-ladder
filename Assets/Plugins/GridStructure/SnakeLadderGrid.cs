@@ -16,6 +16,7 @@ namespace Plugins.GridStructure
             {
                 row = Row - row - 1;
             }
+
             var x = row * CellSize + CellSize / 2f;
             var y = column * CellSize + CellSize / 2f;
             return new Vector2(x, y);
@@ -23,16 +24,14 @@ namespace Plugins.GridStructure
 
         public override Vector2Int GetIndicesByPosition(Vector2 position)
         {
-            var x = (int)(position.x / CellSize - CellSize / 2f);
-            var y = (int)(position.y / CellSize - CellSize / 2f);
+            var x = position.x / CellSize - CellSize /2f;
+            var y = position.y / CellSize - CellSize / 2f;
             if (y % 2 != 0)
             {
                 x = Row - x - 1;
             }
 
-            return new Vector2Int(x, y);
+            return new Vector2Int(Mathf.RoundToInt(x), Mathf.RoundToInt(y));
         }
-
-        
     }
 }
