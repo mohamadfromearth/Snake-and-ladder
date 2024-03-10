@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cell;
+using Objects.Shortcut;
 using Zenject;
 
 public class Placer : IPlacer

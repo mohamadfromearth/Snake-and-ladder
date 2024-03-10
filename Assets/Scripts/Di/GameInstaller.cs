@@ -3,6 +3,7 @@ using Data;
 using Data.Repositories;
 using GameStates;
 using Objects.Dice;
+using Objects.Shortcut;
 using Plugins.GridStructure;
 using UnityEngine;
 using Zenject;
