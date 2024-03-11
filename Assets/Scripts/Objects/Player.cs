@@ -22,6 +22,11 @@ public class Player : MonoBehaviour
         Invoke(nameof(InvokeMoveFinished), moveTime);
     }
 
+    public void SetPosition(Vector3 position)
+    {
+        transform.position = position;
+    }
+
     public void AddMoveFinishedListener(Action moveFinished)
     {
         _moveFinished = moveFinished;
