@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [Inject] private DiceController _diceController;
     [Inject] private IBoardRepository _boardRepository;
 
-    [SerializeField] private UiManager _uiManager;
+    [SerializeField] private UiManager uiManager;
     [SerializeField] private float time;
     private CountDownTimer _timer;
 
@@ -34,20 +34,20 @@ public class GameManager : MonoBehaviour
 
         SetUpPlayerMoveFinishedListener();
 
-        _uiManager.AddRetryListener(OnRetry);
+        uiManager.AddRetryListener(OnRetry);
     }
 
 
     private void Update()
     {
         _timer.Tick(Time.deltaTime);
-        _uiManager.SetTextTime(_timer.GetTimeText());
+        uiManager.SetTextTime(_timer.GetTimeText());
     }
 
 
     private void OnRetry()
     {
-        _uiManager.HideGameOverPanel();
+        uiManager.HideGameOverPanel();
         _timer.Restart();
         _player.SetPosition(_boardRepository.GetPositionByIndices(new Vector2Int(0, 0)));
     }
@@ -65,15 +65,17 @@ public class GameManager : MonoBehaviour
         {
             if (CheckWin() == false)
             {
-                CheckShortcut();
+                if (CheckShortcut() == false)
+                {
+                    _gameStateManager.ToState<ReadyForPlayState>();
+                }
             }
         });
     }
 
     private bool CheckWin()
     {
-        if (_boardRepository.IsEndOfBoard(_player.transform.position)
-            && _timer.IsRunning == false)
+        if (IsWon())
         {
             
             return true;
@@ -82,14 +84,23 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    private void CheckShortcut()
+    private bool IsWon()
+    {
+        return _boardRepository.IsEndOfBoard(_player.transform.position)
+               && _timer.IsRunning;
+    }
+
+    private bool CheckShortcut()
     {
         var shortcutPos = _boardRepository.GetShortcutPositionByPosition(_player.transform.position);
         if (shortcutPos != null)
         {
             _player.Move(shortcutPos.Value);
             StartCoroutine(ToReadyForPlayRoutine());
+            return true;
         }
+
+        return false;
     }
 
     private IEnumerator ToReadyForPlayRoutine()
@@ -102,7 +113,7 @@ public class GameManager : MonoBehaviour
     {
         if (_boardRepository.IsEndOfBoard(_player.transform.position) == false)
         {
-            _uiManager.ShowGameOverPanel();
+            uiManager.ShowGameOverPanel();
         }
     }
 }

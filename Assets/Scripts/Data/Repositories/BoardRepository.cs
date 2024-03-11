@@ -71,6 +71,7 @@ namespace Data.Repositories
         public bool IsEndOfBoard(Vector3 position)
         {
             var indices = GetIndicesByPosition(position);
+            Debug.Log("Indices: " + indices);
 
             if (indices.x == _grid.Row - 1 && indices.y == _grid.Column - 1)
             {
