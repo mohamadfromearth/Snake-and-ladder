@@ -1,3 +1,4 @@
+using Game.Objects;
 using Objects.Dice;
 using UnityEngine;
 using Zenject;

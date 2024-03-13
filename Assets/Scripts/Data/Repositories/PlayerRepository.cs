@@ -12,11 +12,9 @@ namespace Data.Repositories
         {
             _players = new List<PlayerScore>();
             var playerScoreListJson = PlayerPrefs.GetString(PlayerScoreListKey, "");
-            Debug.Log("PlayerScoreListJson :" + playerScoreListJson);
             if (playerScoreListJson != "")
             {
                 _players = JsonUtility.FromJson<PlayerScoreList>(playerScoreListJson).PlayerScores;
-                
             }
         }
 
@@ -24,8 +22,6 @@ namespace Data.Repositories
         {
             _players.Add(playerScore);
             var playerScoreListJson = JsonUtility.ToJson(new PlayerScoreList(_players));
-            Debug.Log("PlayerListJson saving :" + playerScoreListJson);
-            Debug.Log("PlayerList: " + _players);
             PlayerPrefs.SetString(PlayerScoreListKey, playerScoreListJson);
         }
 

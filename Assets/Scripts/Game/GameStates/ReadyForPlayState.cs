@@ -1,9 +1,11 @@
+using Event;
+using Game.Objects;
+using GameStates;
 using Objects.Dice;
-using UnityEngine;
 using Zenject;
 using Grid = GridStructure.Grid;
 
-namespace GameStates
+namespace Game.GameStates
 {
     public class ReadyForPlayState : IGameState
     {
@@ -11,6 +13,7 @@ namespace GameStates
         [Inject] private Dice _dice;
         [Inject] private Grid _grid;
         [Inject] private DiceController _diceController;
+        [Inject] private EventChannel _channel;
 
         public void DiceClick()
         {

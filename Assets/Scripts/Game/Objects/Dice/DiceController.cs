@@ -2,6 +2,7 @@ using Data;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Utils;
 
 namespace Objects.Dice
 {

@@ -1,6 +1,10 @@
 using Cell;
 using Data;
 using Data.Repositories;
+using Event;
+using Game.Event;
+using Game.GameStates;
+using Game.Objects;
 using GameStates;
 using Objects.Dice;
 using Objects.Shortcut;
@@ -26,6 +30,9 @@ namespace Di
 
         public override void InstallBindings()
         {
+            Container.Bind<EventChannel>().AsSingle().NonLazy();
+            Container.Bind<EventInstaller>().AsSingle().NonLazy();
+
             Container.Bind<Grid>().To<SnakeLadderGrid>().AsSingle()
                 .WithArguments(boardData.cellSize, boardData.row, boardData.column);
 
@@ -48,7 +55,13 @@ namespace Di
             Container.Bind<IPlacer>().To<Placer>().AsTransient();
 
 
-            Container.Bind<Player>().FromInstance(Instantiate(playerPrefab)).AsSingle().NonLazy();
+            Container.Bind<Player>().FromMethod(() =>
+                {
+                    var player = Instantiate(playerPrefab);
+                    player.Channel = Container.Resolve<EventChannel>();
+                    return player;
+                }
+            ).AsSingle().NonLazy();
 
 
             Container.Bind<Dice>().AsTransient();

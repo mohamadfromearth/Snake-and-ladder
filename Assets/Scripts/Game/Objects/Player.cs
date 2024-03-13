@@ -1,39 +1,50 @@
 using System;
 using DG.Tweening;
+using Event;
+using Event.EventsData;
+using Game.Event;
 using UnityEngine;
+using Zenject;
 
-public class Player : MonoBehaviour
+namespace Game.Objects
 {
-    [SerializeField] private float moveTime;
-
-    public float MoveTime { get; private set; }
-
-    private Action _moveFinished;
-
-    private void Start()
+    public class Player : MonoBehaviour
     {
-        MoveTime = moveTime;
-    }
+        [SerializeField] private float moveTime;
+
+        public EventChannel Channel { get; set; }
 
 
-    public void Move(Vector2 position)
-    {
-        transform.DOMove(position, moveTime);
-        Invoke(nameof(InvokeMoveFinished), moveTime);
-    }
+         public float MoveTime { get; private set; }
 
-    public void SetPosition(Vector3 position)
-    {
-        transform.position = position;
-    }
+        private Action _moveFinished;
 
-    public void AddMoveFinishedListener(Action moveFinished)
-    {
-        _moveFinished = moveFinished;
-    }
+        private void Start()
+        {
+            MoveTime = moveTime;
+        }
 
-    private void InvokeMoveFinished()
-    {
-        _moveFinished?.Invoke();
+
+        public void Move(Vector2 position)
+        {
+            transform.DOMove(position, moveTime);
+            Invoke(nameof(InvokeMoveFinished), moveTime);
+        }
+
+        public void SetPosition(Vector3 position)
+        {
+            transform.position = position;
+        }
+
+        public void AddMoveFinishedListener(Action moveFinished)
+        {
+            _moveFinished = moveFinished;
+        }
+
+        private void InvokeMoveFinished()
+        {
+            _moveFinished?.Invoke();
+            Channel.Rise<PlayerMoveFinishedEventData>(new PlayerMoveFinishedEventData());
+        }
     }
 }
