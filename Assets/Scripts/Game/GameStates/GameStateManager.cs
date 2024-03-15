@@ -1,17 +1,20 @@
 using System;
 using System.Collections.Generic;
 using Game.GameStates;
+using Unity.VisualScripting;
+using UnityEngine;
 using Zenject;
 
 namespace GameStates
 {
-    public class GameStateManager : IGameState
+    public class GameStateManager
     {
         [Inject] private WaitingForPlayState _waitingForPlayState;
         [Inject] private ReadyForPlayState _readyForPlayState;
 
+
         private Dictionary<Type, IGameState> _states;
-        private Type _currentStateType;
+        public Type CurrentStateType { get; private set; }
 
 
         public void Init()
@@ -21,17 +24,22 @@ namespace GameStates
                 { typeof(WaitingForPlayState), _waitingForPlayState },
                 { typeof(ReadyForPlayState), _readyForPlayState }
             };
-        }
 
+            _readyForPlayState.EnterState = () => { CurrentStateType = typeof(WaitingForPlayState); };
+        }
 
         public void ToState<T>() where T : IGameState
         {
-            _currentStateType = typeof(T);
+            CurrentStateType = typeof(T);
+            Debug.Log("CurrentState type: " + CurrentStateType);
         }
+
 
         public void DiceClick()
         {
-            _states[_currentStateType].DiceClick();
+            _states[CurrentStateType].DiceClick();
         }
+        
+        
     }
 }

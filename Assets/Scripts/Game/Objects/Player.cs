@@ -44,7 +44,6 @@ namespace Game.Objects
         private void InvokeMoveFinished()
         {
             _moveFinished?.Invoke();
-            Channel.Rise<PlayerMoveFinishedEventData>(new PlayerMoveFinishedEventData());
         }
     }
 }

@@ -5,6 +5,8 @@ using Event;
 using Game.Event;
 using Game.GameStates;
 using Game.Objects;
+using Game.Objects.Cell;
+using Game.Objects.Shortcut;
 using GameStates;
 using Objects.Dice;
 using Objects.Shortcut;
@@ -25,6 +27,7 @@ namespace Di
         // prefabs
         [Header("Prefabs")] [SerializeField] private DefaultCellFactory defaultCellFactoryPrefab;
         [SerializeField] private DefaultShortcutFactory defaultShortcutFactoryPrefab;
+        [SerializeField] private SnakeShortcutFactory snakeShortcutFactoryPrefab;
         [SerializeField] private Player playerPrefab;
         [SerializeField] private DiceController diceController;
 
@@ -44,9 +47,15 @@ namespace Di
             Container.Bind<ICellFactory>().To<DefaultCellFactory>()
                 .FromInstance(Instantiate(defaultCellFactoryPrefab)).AsTransient();
 
-            Container.Bind<IShortcutFactory>().To<DefaultShortcutFactory>()
+            Container.Bind<DefaultShortcutFactory>()
                 .FromInstance(Instantiate(defaultShortcutFactoryPrefab)).AsTransient();
 
+            Container.Bind<SnakeShortcutFactory>()
+                .FromInstance(Instantiate(snakeShortcutFactoryPrefab)).AsTransient();
+
+            Container.Bind<ShortcutFactoryManager>().AsTransient();
+
+            Container.Bind<CellContainer>().AsTransient();
 
             Container.Bind<CellsPlacer>().AsTransient().WithArguments(boardData.row, boardData.column);
 

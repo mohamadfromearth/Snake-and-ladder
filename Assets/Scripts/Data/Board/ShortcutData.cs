@@ -1,3 +1,4 @@
+using Data.Board;
 using UnityEngine;
 
 namespace Data
@@ -11,5 +12,6 @@ namespace Data
         public Vector3 position;
         public Vector3 rotation;
         public Vector3 scale;
+        public ShortcutType shortcutType;
     }
 }

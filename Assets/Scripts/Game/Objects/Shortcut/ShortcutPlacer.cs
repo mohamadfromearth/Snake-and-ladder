@@ -1,4 +1,5 @@
 using Data;
+using Game.Objects.Shortcut;
 using Zenject;
 
 namespace Objects.Shortcut
@@ -6,7 +7,7 @@ namespace Objects.Shortcut
     public class ShortcutPlacer : IPlacer
     {
         private ShortcutList _shortcutList;
-        [Inject] private IShortcutFactory _shortcutFactory;
+        [Inject] private ShortcutFactoryManager _shortcutFactoryManager;
 
         public ShortcutPlacer(ShortcutList shortcutList)
         {
@@ -17,7 +18,7 @@ namespace Objects.Shortcut
         {
             foreach (var shortcutData in _shortcutList.ShortcutDatas)
             {
-                var shortcut = _shortcutFactory.Create();
+                var shortcut = _shortcutFactoryManager.GetShortcutFactory(shortcutData.shortcutType).Create();
                 shortcut.SetData(shortcutData.color, shortcutData.position, shortcutData.rotation, shortcutData.scale);
             }
         }

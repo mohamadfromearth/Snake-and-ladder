@@ -1,11 +1,12 @@
+using Objects.Shortcut;
 using UnityEngine;
 
-namespace Objects.Shortcut
+namespace Game.Objects.Shortcut
 {
     public class DefaultShortcutFactory : MonoBehaviour, IShortcutFactory
     {
-        [SerializeField] private DefaultShortcut defaultShortcutPrefab;
+      [SerializeField] private ShortCut shortCutPrefab;
 
-        public IShortcut Create() => Instantiate(defaultShortcutPrefab);
+        public IShortcut Create() => Instantiate(shortCutPrefab);
     }
 }

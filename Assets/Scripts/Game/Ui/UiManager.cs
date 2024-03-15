@@ -49,9 +49,19 @@ namespace Ui
             retryButton.onClick.AddListener(action);
         }
 
+        public void RemoveRetryListener(UnityAction action)
+        {
+            retryButton.onClick.RemoveListener(action);
+        }
+
         public void AddReplayListener(UnityAction action)
         {
             replayButton.onClick.AddListener(action);
+        }
+
+        public void RemoveReplayListener(UnityAction action)
+        {
+            replayButton.onClick.RemoveListener(action);
         }
     }
 }

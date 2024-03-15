@@ -18,3 +18,4 @@ MonoBehaviour:
   position: {x: 2.66, y: 3.35, z: 0}
   rotation: {x: 0, y: 0, z: 27.36}
   scale: {x: 1, y: 2.39, z: 1}
+  shortcutType: 1

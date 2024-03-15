@@ -1,3 +1,5 @@
+using Event;
+using Event.EventsData;
 using UnityEngine;
 using Zenject;
 
@@ -6,6 +8,7 @@ namespace Cell
     public class CellsPlacer : IPlacer
     {
         [Inject] private ICellFactory _cellFactory;
+        [Inject] private EventChannel _channel;
         private int _row, _column;
 
         public CellsPlacer(int row, int column)
@@ -29,6 +32,7 @@ namespace Cell
                 {
                     var cell = _cellFactory.Create();
                     cell.SetPosition(GetPosition(row, column, cell.Size));
+                    _channel.Rise<CellPlaced>(new CellPlaced(new Vector2Int(row,column),cell));
                 }
             }
         }

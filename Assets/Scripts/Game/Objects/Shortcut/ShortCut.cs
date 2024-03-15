@@ -1,8 +1,9 @@
+using Objects.Shortcut;
 using UnityEngine;
 
-namespace Objects.Shortcut
+namespace Game.Objects.Shortcut
 {
-    public class DefaultShortcut : MonoBehaviour, IShortcut
+    public class ShortCut : MonoBehaviour, IShortcut
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
 

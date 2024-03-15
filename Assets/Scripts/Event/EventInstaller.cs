@@ -1,4 +1,3 @@
-using System;
 using Event;
 using Event.EventsData;
 using Zenject;
@@ -16,6 +15,7 @@ namespace Game.Event
             _eventChannel = eventChannel;
             
             _eventChannel.AddAction<PlayerMoveFinishedEventData>();
+            _eventChannel.AddAction<CellPlaced>();
 
         }
 

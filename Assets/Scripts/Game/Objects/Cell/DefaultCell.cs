@@ -17,5 +17,10 @@ namespace Cell
         {
             transform.position = position;
         }
+
+        public Transform GetTransform()
+        {
+            return transform;
+        }
     }
 }

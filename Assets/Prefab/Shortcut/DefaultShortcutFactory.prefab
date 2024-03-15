@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9e0a586363109e45a4c03cdac2cf0d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultShortcutPrefab: {fileID: -3610157254757469819, guid: 2902b7928178666499981c99748afab5, type: 3}
+  shortCutPrefab: {fileID: -3610157254757469819, guid: 2902b7928178666499981c99748afab5, type: 3}

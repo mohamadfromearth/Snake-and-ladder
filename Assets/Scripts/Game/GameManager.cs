@@ -46,12 +46,21 @@ namespace Game
 
             _diceController.AddClickListener(DiceClick);
 
-            SetUpPlayerMoveFinishedListener();
 
             uiManager.AddRetryListener(OnRetry);
             uiManager.AddReplayListener(OnReplay);
 
             _scoreCalculator = new ScoreCalculator(time);
+
+            _eventChannel.Subscribe<PlayerMoveFinishedEventData>(OnPlayerMoveFinished);
+        }
+
+        private void OnDisable()
+        {
+            uiManager.RemoveRetryListener(OnRetry);
+            uiManager.RemoveReplayListener(OnReplay);
+
+            _eventChannel.UnSubscribe<PlayerMoveFinishedEventData>(OnPlayerMoveFinished);
         }
 
 
@@ -59,6 +68,11 @@ namespace Game
         {
             _timer.Tick(Time.deltaTime);
             uiManager.SetTextTime(_timer.GetTimeText());
+
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                Debug.Log(_gameStateManager.CurrentStateType);
+            }
         }
 
 
@@ -81,23 +95,19 @@ namespace Game
         private void DiceClick()
         {
             _gameStateManager.DiceClick();
-            _gameStateManager.ToState<WaitingForPlayState>();
         }
 
-        private void SetUpPlayerMoveFinishedListener()
+        private void OnPlayerMoveFinished()
         {
-            _player.AddMoveFinishedListener(() =>
+            if (CheckWin() == false)
             {
-                if (CheckWin() == false)
+                if (CheckShortcut() == false)
                 {
-                    if (CheckShortcut() == false)
-                    {
-                        _gameStateManager.ToState<ReadyForPlayState>();
-                    }
-                }
-            });
+                    Debug.Log("Player move finsihed shortcut false");
 
-            _eventChannel.Subscribe<PlayerMoveFinishedEventData>((() => { Debug.Log("PlayerMoveFinished"); }));
+                    _gameStateManager.ToState<ReadyForPlayState>();
+                }
+            }
         }
 
         private bool CheckWin()
