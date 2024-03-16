@@ -20,10 +20,20 @@ namespace Game.GameStates
         [Inject] private Grid _grid;
         [Inject] private DiceController _diceController;
         [Inject] private CellContainer _cellContainer;
-        [Inject] private EventChannel _channel;
+        private EventChannel _channel;
+        private Coroutine _moveRoutine;
 
         public Action EnterState { get; set; }
         public Action ExitState { get; set; }
+
+
+        [Inject]
+        public void Construct(EventChannel eventChannel)
+        {
+            _channel = eventChannel;
+            _channel.Subscribe<TimeOver>(OnTimeOver);
+        }
+
 
         public void DiceClick()
         {
@@ -38,7 +48,7 @@ namespace Game.GameStates
             }
             else
             {
-                _player.StartCoroutine(MoveRoutine(diceValue));
+                _moveRoutine = _player.StartCoroutine(MoveRoutine(diceValue));
             }
         }
 
@@ -69,6 +79,14 @@ namespace Game.GameStates
 
             _channel.Rise<PlayerMoveFinishedEventData>(new PlayerMoveFinishedEventData());
             ExitState?.Invoke();
+        }
+
+
+        private void OnTimeOver()
+        {
+            _player.StopCoroutine(_moveRoutine);
+            _player.CancelMove();
+            _channel.Rise<PlayerMoveFinishedEventData>(new PlayerMoveFinishedEventData());
         }
     }
 }

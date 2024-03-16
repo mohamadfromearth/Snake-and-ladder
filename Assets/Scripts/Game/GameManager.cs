@@ -5,7 +5,6 @@ using Event;
 using Event.EventsData;
 using Game.GameStates;
 using Game.Objects;
-using GameStates;
 using Objects.Dice;
 using Ui;
 using UnityEngine;
@@ -68,11 +67,6 @@ namespace Game
         {
             _timer.Tick(Time.deltaTime);
             uiManager.SetTextTime(_timer.GetTimeText());
-
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                Debug.Log(_gameStateManager.CurrentStateType);
-            }
         }
 
 
@@ -81,6 +75,7 @@ namespace Game
             uiManager.HideGameOverPanel();
             _timer.Restart();
             _player.SetPosition(_boardRepository.GetPositionByIndices(new Vector2Int(0, 0)));
+            _player.CancelMove();
         }
 
         private void OnReplay()
@@ -162,6 +157,7 @@ namespace Game
             if (_boardRepository.IsEndOfBoard(_player.transform.position) == false)
             {
                 uiManager.ShowGameOverPanel();
+                _eventChannel.Rise<TimeOver>(TimeOver.Instance);
             }
         }
     }

@@ -1,6 +1,7 @@
 using System;
+using GameStates;
 
-namespace GameStates
+namespace Game.GameStates
 {
     public class WaitingForPlayState : IGameState
     {
@@ -10,6 +11,10 @@ namespace GameStates
         public void DiceClick()
         {
             return;
+        }
+
+        public void Cancel()
+        {
         }
     }
 }

@@ -1,21 +1,19 @@
 using System;
 using DG.Tweening;
 using Event;
-using Event.EventsData;
-using Game.Event;
 using UnityEngine;
-using Zenject;
 
 namespace Game.Objects
 {
     public class Player : MonoBehaviour
     {
         [SerializeField] private float moveTime;
+        private Tween _tween;
 
         public EventChannel Channel { get; set; }
 
 
-         public float MoveTime { get; private set; }
+        public float MoveTime { get; private set; }
 
         private Action _moveFinished;
 
@@ -27,8 +25,13 @@ namespace Game.Objects
 
         public void Move(Vector2 position)
         {
-            transform.DOMove(position, moveTime);
+            _tween = transform.DOMove(position, moveTime);
             Invoke(nameof(InvokeMoveFinished), moveTime);
+        }
+
+        public void CancelMove()
+        {
+            _tween?.Kill();
         }
 
         public void SetPosition(Vector3 position)

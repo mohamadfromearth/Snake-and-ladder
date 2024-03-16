@@ -2363,7 +2363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiManager: {fileID: 495117381}
-  time: 180
+  time: 20
 --- !u!1 &4753747773770244156
 GameObject:
   m_ObjectHideFlags: 0
