@@ -1,4 +1,3 @@
-using Cell;
 using Data;
 using Data.Repositories;
 using Event;
@@ -7,15 +6,13 @@ using Game.GameStates;
 using Game.Objects;
 using Game.Objects.Cell;
 using Game.Objects.Shortcut;
-using GameStates;
 using Objects.Dice;
-using Objects.Shortcut;
 using Plugins.GridStructure;
 using UnityEngine;
 using Zenject;
 using Grid = GridStructure.Grid;
 
-namespace Di
+namespace Game.Di
 {
     public class GameInstaller : MonoInstaller
     {

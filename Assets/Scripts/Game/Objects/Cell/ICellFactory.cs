@@ -1,4 +1,4 @@
-namespace Cell
+namespace Game.Objects.Cell
 {
     public interface ICellFactory
     {

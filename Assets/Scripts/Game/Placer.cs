@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Cell;
-using Objects.Shortcut;
+using Game.Objects.Cell;
+using Game.Objects.Shortcut;
 using Zenject;
 
 public class Placer : IPlacer

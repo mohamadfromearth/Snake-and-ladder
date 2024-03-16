@@ -5,8 +5,8 @@ using Event;
 using Event.EventsData;
 using Game.GameStates;
 using Game.Objects;
+using Game.Ui;
 using Objects.Dice;
-using Ui;
 using UnityEngine;
 using Utils;
 using Zenject;
@@ -38,7 +38,6 @@ namespace Game
             _timer.SetTimeOverListener(OnTimeOver);
 
             _gameStateManager.Init();
-
             _gameStateManager.ToState<ReadyForPlayState>();
 
             _placer.Place();
@@ -98,8 +97,6 @@ namespace Game
             {
                 if (CheckShortcut() == false)
                 {
-                    Debug.Log("Player move finsihed shortcut false");
-
                     _gameStateManager.ToState<ReadyForPlayState>();
                 }
             }

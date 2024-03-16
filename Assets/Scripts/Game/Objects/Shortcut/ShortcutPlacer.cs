@@ -1,8 +1,7 @@
 using Data;
-using Game.Objects.Shortcut;
 using Zenject;
 
-namespace Objects.Shortcut
+namespace Game.Objects.Shortcut
 {
     public class ShortcutPlacer : IPlacer
     {

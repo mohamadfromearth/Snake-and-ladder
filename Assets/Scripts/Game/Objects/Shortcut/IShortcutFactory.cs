@@ -1,4 +1,4 @@
-namespace Objects.Shortcut
+namespace Game.Objects.Shortcut
 {
   public interface IShortcutFactory
   {

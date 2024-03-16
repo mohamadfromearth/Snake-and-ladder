@@ -1,4 +1,4 @@
-using Cell;
+using Game.Objects.Cell;
 using UnityEngine;
 
 namespace Event.EventsData

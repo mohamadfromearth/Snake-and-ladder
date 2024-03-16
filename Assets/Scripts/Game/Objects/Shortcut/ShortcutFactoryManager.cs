@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Data.Board;
-using Objects.Shortcut;
 using Zenject;
 
 namespace Game.Objects.Shortcut

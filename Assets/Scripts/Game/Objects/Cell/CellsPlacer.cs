@@ -3,7 +3,7 @@ using Event.EventsData;
 using UnityEngine;
 using Zenject;
 
-namespace Cell
+namespace Game.Objects.Cell
 {
     public class CellsPlacer : IPlacer
     {

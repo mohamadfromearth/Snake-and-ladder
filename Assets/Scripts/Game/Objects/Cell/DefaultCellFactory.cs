@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Cell
+namespace Game.Objects.Cell
 {
     public class DefaultCellFactory : MonoBehaviour, ICellFactory
     {

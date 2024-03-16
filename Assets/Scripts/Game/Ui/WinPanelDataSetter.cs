@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.U2D;
 using UnityEngine.UI;
 using Utils;
 
-namespace Ui
+namespace Game.Ui
 {
     public class WinPanelDataSetter : MonoBehaviour
     {

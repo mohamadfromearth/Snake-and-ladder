@@ -1,4 +1,3 @@
-using Objects.Shortcut;
 using UnityEngine;
 
 namespace Game.Objects.Shortcut
